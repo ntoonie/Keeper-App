@@ -7,7 +7,7 @@ import CreateArea from "./CreateArea";
 function App() {
 
   const [notes, setNotes] = useState([
-    {id: 1, title: "Test", content: "Test"}
+    // {id: 1, title: "Test", content: "Test"}
   ]);
 
   function addNote(submission){
