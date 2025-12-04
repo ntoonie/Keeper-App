@@ -1,5 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import { Fab } from "@mui/material";
+import { Zoom } from '@mui/material';
+
 
 function CreateArea({onAdd}) {
 
@@ -7,6 +11,11 @@ function CreateArea({onAdd}) {
     title: "",
     content: ""
   });
+  const [click, setClick] = useState(false);
+  
+  function expand(){
+    setClick(true)
+  }
 
   function handleChange(event){
     const {name, value} = event.target;
@@ -14,7 +23,6 @@ function CreateArea({onAdd}) {
     setSubmission(prevSubmission => ({
       ...prevSubmission, [name]: value
     }));
-
   }
 
   function submitNote(event){
@@ -29,10 +37,12 @@ function CreateArea({onAdd}) {
 
   return (
     <div>
-      <form onSubmit={submitNote}>
-        <input onChange = {handleChange} name="title" placeholder="Title" value={submission.title}/>
-        <textarea onChange = {handleChange} name="content" placeholder="Take a note..." rows="3" value={submission.content}/>
-        <button type="submit">Add</button>
+      <form className="create-note" onSubmit={submitNote}>
+        {click ? <input onChange = {handleChange} name="title" placeholder="Title" value={submission.title}/> : null}
+        <textarea onClick = {expand} onChange = {handleChange} name="content" placeholder="Take a note..." rows= {click ? 3 : 1} value={submission.content}/>
+        <Zoom in={click}>
+        <Fab type="submit"><AddIcon/></Fab>
+        </Zoom>
       </form>
     </div>
   );
